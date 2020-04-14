@@ -1,0 +1,174 @@
+<div ng-controller="tradeAccountViewCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-md-10">
+            <ol class="breadcrumb m-t-md">
+                <li>
+                    <a ui-sref="index.main">Home</a>
+                </li>
+                <li class="active">
+                    <strong>Trade Manager</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Account List</h5>
+                        <div ibox-tools></div>     
+                    </div>
+                    <div class="ibox-content">
+                        <div><button type="button" class="btn btn-primary btn-xs" ng-click="addAccount()"><i class="fa fa-plus"></i> Add New Account</button></div>
+                        <table datatable="ng" dt-options="dtAccountOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Money</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="account in accounts track by account.id">
+                                    <td><a type="button" ng-click="loadData(account.id, account.account_name, account.money)"><i class="fa fa-plus-square"></i> {{ account.account_name}}</a></td>
+                                    <td>{{ account.money | number:2}}</td>
+                                    <td>TODO: Status here</td>
+                                    <td><button type="button" class="btn btn-warning btn-xs m-b-xs" ng-click="addFund(account.id)"><i class="fa fa-dollar"></i> Fund</button>
+                                        <button type="button" class="btn btn-primary btn-xs m-b-xs" ng-click="buyItem(account.id)"><i class="fa fa-shopping-cart"></i> Buy</button>
+                                        <button type="button" class="btn btn-primary btn-xs m-b-xs" ng-click="sellItem(account.id)"><i class="fa fa-external-link"></i> Sell</button>
+                                        <button type="button" class="btn btn-danger btn-xs m-b-xs" ng-click="removeAccount(account.id)"><i class="fa fa-trash"></i> Delete</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="tabs-container">
+                    <tabset>
+                        <tab heading="Summary">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <h5>Account: <strong>{{dataView.account_name}}</strong></h5>
+                                    <div ibox-tools></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <table datatable="ng" dt-options="dtSummaryOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Ticker</th>
+                                                <th>Amount</th>
+                                                <th>Current Price</th>
+                                                <th>Current Value</th>
+                                                <th>Avg Buy Price</th>
+                                                <th>Buy Value</th>
+                                                <th>Profit/Loss</th>
+                                                <th>Return (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="summary in summaryData track by summary.ticker">
+                                                <td><button type="button" class="btn btn-primary btn-xs" ng-click="sellItem(dataView.account_id, summary.ticker, summary.tickerData[0].close)"><i class="fa fa-external-link"></i> Sell</button></td>
+                                                <td><a type="button" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Chart View" href="#/ticker/chart/{{ summary.ticker}}"><i class="fa fa-bar-chart-o"></i></a>
+                                                    <a type="button" class="btn btn-primary btn-xs m-l-xs" tooltip-placement="top" tooltip="Quote" href="#/ticker/quote/{{ summary.ticker}}"><i class="fa fa-exchange"></i></a>
+                                                    <a class="m-l-sm" tooltip-placement="top" tooltip="{{ summary.tickerData[0].open}} - {{ summary.tickerData[0].high}} - {{ summary.tickerData[0].low}} - {{ summary.tickerData[0].close}} - {{ summary.tickerData[0].volume}}" href="#/ticker/show/{{ summary.ticker}}/data">{{ summary.ticker}}</a></td>
+                                                <td>{{ summary.remains | number:0}}</td>
+                                                <td>{{ summary.tickerData[0].close | number:2}}</td>
+                                                <td><strong>{{ summary.tickerData[0].close * summary.remains | number:2}}</strong></td>
+                                                <td>{{ summary.values / summary.remains | number:2}}</td>
+                                                <td><strong>{{ summary.values | number:2}}</strong></td>
+                                                <td>{{ summary.tickerData[0].close * summary.remains - summary.values | number:2}}</td>
+                                                <td><strong>{{ 100 * (summary.tickerData[0].close * summary.remains - summary.values) / summary.values | number:2}}%</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Sold Item History">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <h5>Account: <strong>{{dataView.account_name}}</strong></h5>
+                                    <div ibox-tools></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <table datatable="ng" dt-options="dtSoldHistoryOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Ticker</th>
+                                                <th>Amount</th>
+                                                <th>Sell Price</th>
+                                                <th>Sell Value</th>
+                                                <th>Avg Buy Price</th>
+                                                <th>Buy Value</th>
+                                                <th>Profit/Loss</th>
+                                                <th>Return (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="history in soldHistory track by history.id">
+                                                <td>{{ history.sell_date}}</td>
+                                                <td><a type="button" ng-hide="{{ history.ticker === ''}}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Chart View" href="#/ticker/chart/{{ history.ticker}}"><i class="fa fa-bar-chart-o"></i></a>
+                                                    <a type="button" ng-hide="{{ history.ticker === ''}}" class="btn btn-primary btn-xs m-l-xs" tooltip-placement="top" tooltip="Quote" href="#/ticker/quote/{{ history.ticker}}"><i class="fa fa-exchange"></i></a>
+                                                    <a class="m-l-sm" href="#/ticker/show/{{ history.ticker}}/data">{{ history.ticker}}</a></td>
+                                                <td>{{ history.amount | number:0}}</td>
+                                                <td>{{ history.sell_price | number:2}}</td>
+                                                <td><strong>{{ history.sell_price * history.amount | number:2}}</strong></td>
+                                                <td>{{ history.value / history.amount | number:2}}</td>
+                                                <td><strong>{{ history.value | number:2}}</strong></td>
+                                                <td>{{ history.amount * history.sell_price - history.value | number:2}}</td>
+                                                <td><strong>{{ 100 * (history.amount * history.sell_price - history.value) / history.value | number:2}}%</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Transaction Log">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <h5>Account: <strong>{{dataView.account_name}}</strong></h5>
+                                    <div ibox-tools></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <table datatable="ng" dt-options="dtTransactionOptions" class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                                <th>Ticker</th>
+                                                <th>Price</th>
+                                                <th>Amount</th>
+                                                <th>Change</th>
+                                                <th>Money</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="log in transactionLog track by log.id">
+                                                <td>{{ log.date}}</td>
+                                                <td><div ng-bind-html="logAction[log.action]"></div></td>
+                                                <td><a type="button" ng-hide="{{ log.ticker === ''}}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Chart View" href="#/ticker/chart/{{ log.ticker}}"><i class="fa fa-bar-chart-o"></i></a>
+                                                    <a type="button" ng-hide="{{ log.ticker === ''}}" class="btn btn-primary btn-xs m-l-xs" tooltip-placement="top" tooltip="Quote" href="#/ticker/quote/{{ log.ticker}}"><i class="fa fa-exchange"></i></a>
+                                                    <a class="m-l-sm" href="#/ticker/show/{{ log.ticker}}/data">{{ log.ticker}}</a></td>
+                                                <td>{{ log.price | number:2}}</td>
+                                                <td>{{ log.amount | number:0}}</td>
+                                                <td><strong>{{ log.money_after - log.money_before | number:2}}</strong></td>
+                                                <td>{{ log.money_after | number:2}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

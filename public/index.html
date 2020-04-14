@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="lumine">
+
+    <head>
+
+        <base href="/#/">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- Page title set in pageTitle directive -->
+        <title page-title></title>
+
+        <!-- Font awesome -->
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <!-- Bootstrap and Fonts -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Main Inspinia CSS files -->
+        <link href="css/animate.css" rel="stylesheet">
+        <link id="loadBefore" href="css/style.css" rel="stylesheet">
+
+
+    </head>
+
+    <!-- ControllerAs syntax -->
+    <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+    <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}} fixed-sidebar">
+
+        <!-- Main view  -->
+        <div ui-view></div>
+
+        <!-- jQuery and Bootstrap -->
+        <script src="js/jquery/jquery-2.1.1.min.js"></script>
+        <script src="js/plugins/jquery-ui/jquery-ui.js"></script>
+        <script src="js/bootstrap/bootstrap.min.js"></script>
+
+        <!-- MetsiMenu -->
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+        <!-- SlimScroll -->
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+        <!-- Peace JS -->
+        <script src="js/plugins/pace/pace.min.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="js/inspinia.js"></script>
+
+        <!-- Main Angular scripts-->
+        <script src="js/angular/angular.min.js"></script>
+        <script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+        <script src="js/ui-router/angular-ui-router.min.js"></script>
+        <script src="js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+
+        <!-- Anglar App Script -->
+        <script src="js/app.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/directives.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/controllers/authControllers.js"></script>
+        <script src="js/controllers/pageControllers.js"></script>
+        <script src="js/controllers/tickerControllers.js"></script>
+        <script src="js/controllers/adminControllers.js"></script>
+        <script src="js/controllers/logControllers.js"></script>
+        <script src="js/controllers/chartControllers.js"></script>
+        <script src="js/controllers/tradeControllers.js"></script>
+        <script src="js/services/apiServices.js"></script>
+        <script src="js/services/tradeServices.js"></script>
+        <!-- Angular ngSanitize -->
+        <script src="js/angular/angular-sanitize.min.js"></script>
+        <!-- Local Cache Lib -->
+        <script src="js/addon/lscache.min.js"></script>
+        <!-- Jwt Lib -->
+        <script src="js/addon/satellizer.min.js"></script>
+        <!-- FCSA Number Lib -->
+        <script src="js/addon/fcsaNumber.min.js"></script>
+        <!-- Chart Lib -->
+        <script src="charting_library/charting_library.min.js"></script>
+        <script src="charting_library/datafeed/udf/datafeed.js"></script>
+    </body>
+</html>

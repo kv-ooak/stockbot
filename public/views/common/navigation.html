@@ -1,0 +1,49 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse" full-scroll>
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element" dropdown>
+                    <a class="dropdown-toggle" dropdown-toggle>
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">{{main.userName}}</strong>
+                            </span>
+                            <span class="text-muted text-xs block">{{main.userRole}}<b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs" ng-controller="authLogoutCtrl">
+                        <li><a href="#" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    Lu
+                </div>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="index.main"><i class="fa fa-dashboard"></i> <span class="nav-label">Main page</span> </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="trade.index"><i class="fa fa-user"></i> <span class="nav-label">Trade Manager</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="ticker.index"><i class="fa fa-diamond"></i> <span class="nav-label">Ticker</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="ticker.quote"><i class="fa fa-exchange"></i> <span class="nav-label">Quote</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="ticker.recommend"><i class="fa fa-line-chart"></i> <span class="nav-label">Recommend</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="ticker.chart"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Chart View</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="admin.index"><i class="fa fa-users"></i> <span class="nav-label">Administrator</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="admin.log"><i class="fa fa-file"></i> <span class="nav-label">Action Log</span></a>
+            </li>
+        </ul>
+
+    </div>
+</nav>

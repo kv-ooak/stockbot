@@ -1,0 +1,14 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12"><h3 class="m-t-none m-b">Add fund to your account</h3>
+            <label class="font-noraml">You can add minus value to simulate withdraw action</label>
+            <form role="form">
+                <div class="form-group"><label>Amount (thousand VND)</label> <input placeholder="Amount" type="text" fcsa-number="{  }" class="form-control ng-invalid ng-invalid-required" ng-model="model.amount" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required></div>
+                <div>
+                    <button class="btn btn-sm btn-primary m-t-n-xs" ng-click="ok()"><strong><i class="fa fa-check"></i> Add</strong></button>
+                    <button class="btn btn-sm btn-danger m-t-n-xs" ng-click="cancel()"><strong><i class="fa fa-times"></i> Cancel</strong></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

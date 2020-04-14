@@ -1,0 +1,55 @@
+<div ng-controller="tickerDataDatablesCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-md-10">
+            <h2>{{ticker}}</h2>
+            <ol class="breadcrumb m-t-md">
+                <li>
+                    <a ui-sref="index.main">Home</a>
+                </li>
+                <li>
+                    <a ui-sref="ticker.index">Ticker</a>
+                </li>
+                <li>
+                    <a ui-sref="ticker.recommend">Recommend</a>
+                </li>
+                <li class="active">
+                    <strong>Data</strong>
+                    <a type="button" class="btn btn-primary btn-xs m-l-lg" style="color: white" ui-sref="ticker.chart({ticker: ticker})"><i class="fa fa-bar-chart-o"></i> Chart View</a>
+                    <a type="button" class="btn btn-primary btn-xs m-l-xxs" style="color: white" ui-sref="ticker.quote({ticker: ticker})"><i class="fa fa-exchange"></i> Quote</a>
+                    <button type="button" class="btn btn-primary btn-xs m-l-xxs" ng-click="buyItem(ticker)"><i class="fa fa-shopping-cart"></i> Buy Item</button>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tabs-container">
+                    <tabset>
+                        <tab heading="Raw Data" active="tabs.tabData">
+                            <div class="panel-body">
+                                <table datatable="" dt-options="dtDataOptions" dt-columns="dtDataColumns"  class="table table-striped table-bordered table-hover dataTables-example">
+                                </table>
+                            </div>
+                        </tab>
+                        <tab heading="Calculated Data" active="tabs.tabBot">
+                            <div class="panel-body">
+                                <table datatable="" dt-options="dtBotOptions" dt-columns="dtBotColumns"  class="table table-striped table-bordered table-hover dataTables-example">
+                                </table>
+                            </div>
+                        </tab>
+                        <tab heading="Recommend Data" active="tabs.tabRecommend">
+                            <div class="panel-body">
+                                <table datatable="" dt-options="dtRecommendOptions" dt-columns="dtRecommendColumns"  class="table table-striped table-bordered table-hover dataTables-example">
+                                </table>
+                            </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
